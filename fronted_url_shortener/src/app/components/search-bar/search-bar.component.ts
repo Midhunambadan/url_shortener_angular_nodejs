@@ -17,16 +17,21 @@ export class SearchBarComponent {
               private http:HttpClient
   ) {}
 
+
+  private userApi='http://localhost:3000'
+
   inputUrl: string = ''
+  dataBackend:any
   submitUrl() {
     if(!this.inputUrl.trim()){
       alert('Please Enter valid URL')
       return 
     }
-    alert('Submitted URL: ' + this.inputUrl)
-     this.http.get('http://localhost:3000').subscribe((res)=>{
-      this.inputUrl='heello'
-    })
+   
+     this.http.post(this.userApi,{url:this.inputUrl}).subscribe((res:any)=>{
+      this.dataBackend=res.data
+     })
+     this.inputUrl=''
   }
 
   
