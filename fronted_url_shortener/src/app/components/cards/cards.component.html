@@ -1,15 +1,21 @@
 
 
-
-<div class="card" *ngIf="backendData">
-    <div class="header"></div>
+@if (backendData) {
+  <div class="card">
+    <div class="header">Material Card</div>
     <div class="info">
-      <p class="title">How to make this material card ?</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-    molestiae quas vel sint commodi. </p>
+        <p class="title">How to create a modern material card?</p>
+        <p class="old-link">Shortify: <span id="link-text">https://example.com/old-link</span></p>
+        <p class="description">This card includes new features like copying links, editing, and deleting.</p>
+        <p class="old-link">Long URL: <span id="link-text">https://example.com/old-link</span></p>
     </div>
     <div class="footer">
-      <p class="tag">#HTML #CSS </p>
-      <button type="button" class="action">Get started </button>
+        <i class="fa-solid fa-copy icon" title="Copy Link" ></i>
+        <i class="fa-solid fa-pen icon" title="Edit"></i>
+        <i class="fa-solid fa-trash icon" title="Delete"></i>
     </div>
-    </div>
+</div>
+
+} @else {
+  <h2>No data available</h2>
+}

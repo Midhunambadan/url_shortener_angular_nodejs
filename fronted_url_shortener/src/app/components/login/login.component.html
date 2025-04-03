@@ -1,0 +1,39 @@
+<app-header></app-header>
+
+<div class="card-container">
+    <div class="container">
+        <div class="log-card">
+
+            <p class="heading">{{ isLoginMode ? 'Welcome Back' : 'Create an Account' }}</p>
+            <p>{{ isLoginMode ? 'We are happy to have you again!' : 'Join us and start your journey!' }}</p>
+
+            <div class="input-group">
+                <p class="text" *ngIf="!isLoginMode">Full Name</p>
+                <input class="input" type="text" placeholder="For Ex: Midhun Ambadan" *ngIf="!isLoginMode">
+
+                <p class="text">Email</p>
+                <input class="input" type="email" placeholder="For Ex: midhunambadan@gmail.com">
+
+                <p class="text">Password</p>
+                <input class="input" type="password" placeholder="Enter Password">
+            </div>
+
+            <div class="password-group">
+                <div class="checkbox-group">
+                    <input type="checkbox">
+                    <label class="label">{{ isLoginMode ? 'Remember Me' : 'I agree to the terms & conditions' }}</label>
+                </div>
+                <a href="#" class="forget-password" *ngIf="isLoginMode">Forgot Password?</a>
+            </div>
+
+            
+            <button class="btn">{{ isLoginMode ? 'Sign In' : 'Sign Up' }}</button>
+
+            <p class="no-account">
+                {{ isLoginMode ? "Don't have an account?" : "Already have an account?" }}
+                <a class="link" (click)="toggleMode()">{{ isLoginMode ? 'Sign Up' : 'Sign In' }}</a>
+            </p>
+
+        </div>
+    </div>
+</div>
