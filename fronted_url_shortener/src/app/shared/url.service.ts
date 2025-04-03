@@ -1,17 +1,26 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UrlService {
 
-  constructor() { }
+  private api='http://localhost:3000'
 
-  private messageSource=new BehaviorSubject('')
-  currentMessage=this.messageSource.asObservable()
+  constructor(private http:HttpClient) { }
 
-  changeMessage(message:string){
-    this.messageSource.next(message)
+   private backendDataSubject = new BehaviorSubject<any>(null)
+  backendData$ = this.backendDataSubject.asObservable()
+
+  
+  submitUrl(inputUrl:string):Observable<any>{
+    return this.http.post<any>(this.api,{url:inputUrl}).pipe(
+      tap((res)=>this.backendDataSubject.next(res.data))
+    )
   }
+
+  
+
 }

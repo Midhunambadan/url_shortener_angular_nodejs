@@ -13,25 +13,17 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrl: './search-bar.component.css',
 })
 export class SearchBarComponent {
-  constructor(private UrlService: UrlService,
-              private http:HttpClient
-  ) {}
-
-
-  private userApi='http://localhost:3000'
-
+  constructor(private UrlService: UrlService,private http:HttpClient){}
   inputUrl: string = ''
   dataBackend:any
+
   submitUrl() {
     if(!this.inputUrl.trim()){
       alert('Please Enter valid URL')
       return 
     }
-   
-     this.http.post(this.userApi,{url:this.inputUrl}).subscribe((res:any)=>{
-      this.dataBackend=res.data
-     })
-     this.inputUrl=''
+     this.UrlService.submitUrl(this.inputUrl).subscribe()
+    this.inputUrl=''
   }
 
   
