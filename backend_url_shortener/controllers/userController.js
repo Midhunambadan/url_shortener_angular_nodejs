@@ -1,5 +1,6 @@
 
 const random=require('short-id')
+const bcrypt=require('bcrypt')
 const User=require('../models/userModel')
 
 const home=async (req,res)=>{
@@ -37,11 +38,39 @@ const signup= async (req,res)=>{
     }
 }
 
+const login=async (req,res)=>{
+    try {
+        let {email,password}=req.body
+        
+        let user=await User.findOne({email})
+
+        if(!user){
+            return res.status(400).json({message:'User not found'})
+        }
+        console.log(user.password,password)
+
+        if(password!==user.password){
+            console.log('Password not match');
+            return res.status(401).json({message:'Invalid Password'})
+        }
+        // const isMatch=await bcrypt.compare(password,user.password)
+        // console.log(isMatch)
+
+        res.status(200).json({ message: 'Login success',data:user });
+
+        
+    } catch (error) {
+        console.error('Error in login:', error);
+        res.status(500).json({ message: 'Server error' })
+    }
+}
+
 
 
 module.exports={
     home,
-    signup
+    signup,
+    login
 }
 
 
