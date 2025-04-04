@@ -1,13 +1,17 @@
 
-const express=require('express')
+import express from 'express';
 const app=express()
-const mongoose=require('mongoose')
+import  mongoose from 'mongoose'
 
-require('dotenv').config()
-const cors=require('cors')
+import dotenv from 'dotenv'
+dotenv.config()
+import cors from 'cors'
+
 const PORT = process.env.PORT || 5000
 
-const userRouter=require('./router/userRouter')
+import userRouter from './router/userRouter.js';
+
+
 
 app.use(cors())
 app.use(express.json())
@@ -20,8 +24,6 @@ mongoose.connect(process.env.MONGO_URI)
 
 
 app.use('/',userRouter)
-
-
 
 
 app.listen(PORT,()=>{

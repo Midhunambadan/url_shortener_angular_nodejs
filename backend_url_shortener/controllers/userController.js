@@ -1,13 +1,14 @@
 
-const random=require('short-id')
-const bcrypt=require('bcrypt')
-const User=require('../models/userModel')
+import bcrypt from 'bcrypt'
+import shortid from 'shortid'
+import User from '../models/userModel.js'
 
 const home=async (req,res)=>{
     try {
         let url = req.body.url
-        let id=random.generate(8)
-        console.log(id)
+        let shortId=shortid(8)
+        console.log(shortId)
+
         return res.status(200).json({
             success:true,
             message:'Heyyy',
@@ -25,7 +26,6 @@ const signup= async (req,res)=>{
 
         let user =await User.findOne({email})
         if(!user){
-            console.log('Not find a user')
             user = new User({ name, email, password })
             await user.save()
             res.status(201).json({ message: 'User registered successfully' });
@@ -47,7 +47,7 @@ const login=async (req,res)=>{
         if(!user){
             return res.status(400).json({message:'User not found'})
         }
-        console.log(user.password,password)
+        // console.log(user.password,password)
 
         if(password!==user.password){
             console.log('Password not match');
@@ -67,10 +67,17 @@ const login=async (req,res)=>{
 
 
 
-module.exports={
+// module.exports={
+//     home,
+//     signup,
+//     login
+// }
+
+export default {
     home,
     signup,
-    login
+    login,
+    
 }
 
 

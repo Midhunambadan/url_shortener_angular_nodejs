@@ -1,8 +1,8 @@
 
-const express=require('express')
-const router=express.Router()
+import express from 'express'
+import userController  from '../controllers/userController.js'
 
-const userController=require('../controllers/userController')
+const router=express.Router()
 
 
 router.post('/',userController.home)
@@ -10,4 +10,5 @@ router.post('/signup',userController.signup)
 router.post('/login',userController.login)
 
 
-module.exports=router
+
+export default router
