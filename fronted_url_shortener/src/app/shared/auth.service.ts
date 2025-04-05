@@ -16,9 +16,19 @@ export class AuthService {
   }
 
 
-  userLogin(loginData:any):Observable<any>{
-    return this.http.post(`${this.apiUrl}/login`,loginData)
+  userLogout(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/logout`, {}, {
+      withCredentials: true
+    });
   }
+  
+  
+  userLogin(loginData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, loginData, {
+      withCredentials: true  
+    });
+  }
+  
 
   setUserData(data:any){
     this.userData=data
@@ -28,4 +38,21 @@ export class AuthService {
     return this.userData
   }
 
+
+  getUserProfile() {
+    return this.http.get<{ data: any }>(`${this.apiUrl}/profile`, {
+      withCredentials: true  
+    });    
+  }
+  
+
+  clearUserData() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
+    this.userData = null
+  }
+  
+
 }
+
+

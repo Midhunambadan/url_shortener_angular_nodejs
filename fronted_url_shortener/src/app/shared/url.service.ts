@@ -16,7 +16,7 @@ export class UrlService {
 
   
   submitUrl(inputUrl:string):Observable<any>{
-    return this.http.post<any>(this.api,{url:inputUrl}).pipe(
+    return this.http.post<any>(`${this.api}/create`,{url:inputUrl}).pipe(
       tap((res)=>this.backendDataSubject.next(res.data))
     )
   }

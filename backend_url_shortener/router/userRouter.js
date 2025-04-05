@@ -4,10 +4,18 @@ import userController  from '../controllers/userController.js'
 
 const router=express.Router()
 
+import authenticateToken from '../middleware/userAuth.js'
 
-router.post('/',userController.home)
+
+router.get('/',userController.home)
 router.post('/signup',userController.signup)
 router.post('/login',userController.login)
+router.post('/logout',userController.logout)
+
+
+router.post('/create', userController.createUrl)
+router.get('/profile', authenticateToken, userController.userProfile)
+
 
 
 

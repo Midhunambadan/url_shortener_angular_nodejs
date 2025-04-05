@@ -63,6 +63,9 @@ export class LoginComponent {
       console.log(res.message)
       console.log(res.data);
       
+      if (res.token) {
+        localStorage.setItem('token', res.token)
+      }
       this.AuthService.setUserData(res.data)
       this.router.navigate(['/home'])
       this.isLogin=true
