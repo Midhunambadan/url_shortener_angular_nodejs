@@ -102,6 +102,7 @@ const createUrl = async (req, res) => {
 const userProfile = async (req, res) => {
   try {
     const userId = req.user.userId;
+    console.log('uesridddd',req.user)
     const user = await User.findById(userId).select("-password");
 
     if (!user) {
