@@ -8,7 +8,7 @@ const userModel = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
+    
   },
   password: {
     type: String,
@@ -20,7 +20,8 @@ const userModel = new mongoose.Schema({
       
       shortUrl: {
         type: String,
-        unique: true,
+        unique: true, 
+        sparse: true,
       },
 
       createdAt: { type: Date, default: Date.now },
@@ -28,6 +29,5 @@ const userModel = new mongoose.Schema({
   ],
 });
 
-const User = mongoose.model("User", userModel);
 
-export default User;
+export default mongoose.model('User', userModel)

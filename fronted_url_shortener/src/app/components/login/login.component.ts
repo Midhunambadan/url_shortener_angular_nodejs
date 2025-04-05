@@ -30,6 +30,7 @@ export class LoginComponent {
   register(){
     if(!this.email || !this.name||!this.password ){
       alert('Please enter details')
+      return
     }
 
     let userData={
@@ -37,7 +38,6 @@ export class LoginComponent {
       name:this.name,
       password:this.password
     }
-    alert('Register work'+userData.email)
 
     this.AuthService.signupUser(userData).subscribe((res:any)=>{
       alert(res.message)
@@ -45,8 +45,9 @@ export class LoginComponent {
     },
     (error)=>{
       console.error('Registration Failed',error)
-      alert('Failed to register user'+error.message)
-    })}
+      alert('Failed to register user: ' + (error.error?.message || error.message));
+    })
+    }
 
 
 
