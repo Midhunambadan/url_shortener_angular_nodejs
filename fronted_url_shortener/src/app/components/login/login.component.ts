@@ -23,6 +23,7 @@ export class LoginComponent {
   isLogin = true
 
   constructor(private AuthService:AuthService,private router:Router){}
+
   toggleForm() {
     this.isLogin = !this.isLogin
   }
@@ -41,6 +42,9 @@ export class LoginComponent {
 
     this.AuthService.signupUser(userData).subscribe((res:any)=>{
       alert(res.message)
+      userData.email=''
+      userData.name=''
+      userData.password=''
       this.isLogin=true
     },
     (error)=>{
@@ -61,14 +65,17 @@ export class LoginComponent {
       password:this.password
     }
     this.AuthService.userLogin(loginData).subscribe((res:any)=>{
-      console.log(res.message)
-      console.log(res.data);
+      const token=res.token
+      // console.log('token-------',token)
       
-      if (res.token) {
-        localStorage.setItem('token', res.token)
+      if (token) {
+        const expires = new Date();
+        expires.setDate(expires.getDate() + 7)
+        document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/; secure`;
       }
+
       this.AuthService.setUserData(res.data)
-      this.router.navigate(['/home'])
+      this.router.navigate(['/profile'])
       this.isLogin=true
     },
     (error)=>{

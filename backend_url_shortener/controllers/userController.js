@@ -56,13 +56,15 @@ const login = async (req, res) => {
     );
 
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
+      // httpOnly: true,
+      secure: true,
       maxAge: 3600000,
       sameSite: "Lax",
     });
 
-    res.status(200).json({ message: "Login success", data: user });
+    // console.log('token-------------',token)
+
+    res.status(200).json({ message: "Login success", data: user,token });
   } catch (error) {
     console.error("Error in login:", error);
     res.status(500).json({ message: "Server error" });
@@ -72,9 +74,9 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
   try {
     res.clearCookie("token", {
-      httpOnly: true,
+      // httpOnly: true,
       sameSite: "Lax",
-      secure: false,
+      secure: true,
     });
 
     res.status(200).json({ message: "Logged out successfully" });
@@ -102,14 +104,14 @@ const createUrl = async (req, res) => {
 const userProfile = async (req, res) => {
   try {
     const userId = req.user.userId;
-    console.log('uesridddd',req.user)
+    // console.log('uesridddd',req.user)
     const user = await User.findById(userId).select("-password");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    console.log(user);
+    // console.log(user);
     res.status(200).json({ message: "User profile fetched", data: user });
   } catch (error) {
     console.error("Error in userProfile:", error);

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,11 @@ export const routes: Routes = [
     },
     {
         path:'profile',
-        component:UserProfileComponent
+        component:UserProfileComponent,
+        canActivate:[authGuard]
+    },
+    {
+        path:'**',
+        redirectTo:'login'
     }
 ];

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router'
+import { catchError, map, Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -8,28 +10,62 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   private userData: any = null
-  private apiUrl = 'http://localhost:3000';
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private router:Router) { }
 
   signupUser(userData:any):Observable<any>{
-    return this.http.post(`${this.apiUrl}/signup`,userData)
+    return this.http.post(`${environment.apiUrl}/signup`,userData)
   }
 
-
-  userLogout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/logout`, {}, {
-      withCredentials: true
-    });
-  }
-  
-  
+    
   userLogin(loginData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, loginData, {
+    return this.http.post(`${environment.apiUrl}/login`, loginData, {
       withCredentials: true  
     });
   }
   
 
+  userLogout(): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/logout`, {}, {
+      withCredentials: true
+    });
+  }
+  
+
+  // isLogin(){
+  //   return !!localStorage.getItem('token ')
+  // }
+
+  
+ 
+
+    getToken(): string | null {
+      return document.cookie
+        .split('; ')
+        .find(row => row.startsWith('token='))
+        ?.split('=')[1] || null;
+    }
+    
+    isLoggedIn(): boolean {
+      return !!this.getToken()
+    }
+    
+
+  // getToken(): string | null {
+  //   const name = 'token=';
+  //   const decodedCookie = decodeURIComponent(document.cookie);
+  //   const ca = decodedCookie.split(';');
+  //   for (let c of ca) {
+  //     while (c.charAt(0) === ' ') {
+  //       c = c.substring(1);
+  //     }
+  //     if (c.indexOf(name) === 0) {
+  //       return c.substring(name.length, c.length);
+  //     }
+  //   }
+  //   return null;
+  // }
+  
+  
   setUserData(data:any){
     this.userData=data
   }
@@ -40,7 +76,7 @@ export class AuthService {
 
 
   getUserProfile() {
-    return this.http.get<{ data: any }>(`${this.apiUrl}/profile`, {
+    return this.http.get<{ data: any }>(`${environment.apiUrl}/profile`, {
       withCredentials: true  
     });    
   }
