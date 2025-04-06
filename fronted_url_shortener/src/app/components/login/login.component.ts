@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +15,7 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   email:string=''
   name:string=''
@@ -23,6 +23,14 @@ export class LoginComponent {
   isLogin = true
 
   constructor(private AuthService:AuthService,private router:Router){}
+
+
+  ngOnInit(): void {
+    // const token = this.AuthService.getToken()
+    // if (token) {
+    //   this.router.navigate(['/home']);
+    // }
+  }
 
   toggleForm() {
     this.isLogin = !this.isLogin

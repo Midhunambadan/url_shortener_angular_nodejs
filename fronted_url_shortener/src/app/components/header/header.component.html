@@ -19,19 +19,19 @@
       </ul>
 
       <!-- Search Bar -->
-      <form class="d-flex me-3">
+      <form class="d-flex me-3" >
         <input class="form-control me-2" type="search" placeholder="Enter URL..." aria-label="Search">
         <button class="btn btn-light" type="submit">Search</button>
       </form>
       
       <!-- Profile Section -->
-      <div class="dropdown">
+      <div class="dropdown" *ngIf="userData ; else showLogin" >
         <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" class="rounded-circle me-2" alt="Profile" width="40" height="40">
           <span *ngIf="userData">{{userData.name}}</span>
           <span *ngIf="!userData">Login</span>
         </button>
-        <ul class="dropdown-menu dropdown-menu-end">
+        <ul class="dropdown-menu dropdown-menu-end"  >
           <li><a class="dropdown-item" [routerLink]="['/profile']" routerLinkActive="router-link-active" >Profile</a></li>
           <li><a class="dropdown-item" href="#">Settings</a></li>
 
@@ -39,11 +39,22 @@
             <a class="dropdown-item" [routerLink]="['/login']" routerLinkActive="router-link-active">Login</a>
           </li> -->
           
-
           <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item text-danger" (click)="userLogout()">Logout</a></li>
         </ul>
       </div>
+
+      <ng-template #showLogin>
+        <div class="dropdown">
+          <a class="btn btn-light d-flex align-items-center" [routerLink]="['/login']">
+            <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" 
+                 class="rounded-circle me-2" alt="Login" width="40" height="40">
+            <span>Login</span>
+          </a>
+        </div>
+      </ng-template>
+      
+
     </div>
   </div>
 </nav>

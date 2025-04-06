@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/auth.service';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule,HeaderComponent],
+  imports: [CommonModule,HeaderComponent,SearchBarComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
