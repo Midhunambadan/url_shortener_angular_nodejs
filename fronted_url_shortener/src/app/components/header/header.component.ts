@@ -21,6 +21,11 @@ export class HeaderComponent implements OnInit {
     this.userData=this.AuthService.getUserData()
   }
 
+  token:any=''
+
+  getToken(){
+    this.token=this.AuthService.getToken()
+  }
   
   userLogout(){
     this.AuthService.userLogout().subscribe({
@@ -29,6 +34,7 @@ export class HeaderComponent implements OnInit {
         this.AuthService.clearUserData()
         
         this.userData = null
+        this.getToken()
         this.router.navigate(['/login']);
       },
       error: (err) => {
