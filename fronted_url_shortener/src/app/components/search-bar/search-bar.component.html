@@ -17,6 +17,8 @@
 
             <!-- Submit Button -->
             <button type="submit" class="search-button">
+                <!-- <button (click)="submitUrl()">Submit</button> -->
+
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M10 13a5 5 0 0 0 7 7l3-3a5 5 0 0 0-7-7m-3-3a5 5 0 0 0-7 7l3 3a5 5 0 0 0 7-7" 
                           stroke="currentColor" 
@@ -31,3 +33,9 @@
     </div>
 </form>
 
+
+
+<div *ngIf="dataBackend">
+    <h3>Backend Response:</h3>
+    <pre>{{ dataBackend  }}</pre>
+  </div>

@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home</a>
+          <a class="nav-link active" [routerLink]="['/home']" routerLinkActive="router-link-active" >Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Features</a>
@@ -25,7 +25,8 @@
       </form>
       
       <!-- Profile Section -->
-      <div class="dropdown" *ngIf="userData ; else showLogin" >
+      <!-- *ngIf="userData ; else showLogin"  -->
+      <div class="dropdown" >
         <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" class="rounded-circle me-2" alt="Profile" width="40" height="40">
           <span *ngIf="userData">{{userData.name}}</span>
@@ -44,7 +45,7 @@
         </ul>
       </div>
 
-      <ng-template #showLogin>
+      <!-- <ng-template #showLogin>
         <div class="dropdown">
           <a class="btn btn-light d-flex align-items-center" [routerLink]="['/login']">
             <img src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" 
@@ -52,7 +53,7 @@
             <span>Login</span>
           </a>
         </div>
-      </ng-template>
+      </ng-template> -->
       
 
     </div>

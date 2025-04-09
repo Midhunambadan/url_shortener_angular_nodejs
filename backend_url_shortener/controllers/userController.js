@@ -89,7 +89,7 @@ const createUrl = async (req, res) => {
   try {
     let url = req.body.url;
     let shortId = shortid(8);
-    console.log(shortId);
+    console.log('short id',shortId);
 
     return res.status(200).json({
       success: true,

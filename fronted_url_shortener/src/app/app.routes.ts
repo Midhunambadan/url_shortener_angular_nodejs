@@ -16,17 +16,16 @@ export const routes: Routes = [
     {
         path:'home',
         component:HomeComponent,
-        // canActivate:[authGuard]
     },
     {
         path:'login',
         component:LoginComponent,
-        canActivate:[noauthGuard]
+        // canActivate:[noauthGuard]
     },
     {
         path:'profile',
         component:UserProfileComponent,
-        canActivate:[authGuard]
+        // canActivate:[authGuard]
     },
     // {
     //     path: '**',
@@ -34,8 +33,8 @@ export const routes: Routes = [
     //     component: HomeComponent // fallback if needed, but won't be shown because guard blocks it
     //   }
       
-    // {
-    //     path:'**',
-    //     redirectTo:'home'
-    // }
+    {
+        path:'**',
+        redirectTo:'home'
+    }
 ];
