@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import shortid from "shortid";
 import User from "../models/userModel.js";
+import Url from "../models/urlModel.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
@@ -22,7 +23,11 @@ const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
 
+    console.log('new user------',newUser);
+    
     let data = await newUser.save();
+
+    console.log('---------------------------------------',data)
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
@@ -33,7 +38,7 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   try {
     let { email, password } = req.body;
-    let user = await User.findOne({ email });
+    const user = await User.findOne({ email })    
 
     if (!user) {
       return res.status(400).json({ message: "User not found" });
@@ -53,18 +58,20 @@ const login = async (req, res) => {
       {
         expiresIn: "1h",
       }
-    );
+    );    
 
-    res.cookie("token", token, {
-      // httpOnly: true,
-      secure: true,
-      maxAge: 3600000,
-      sameSite: "Lax",
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: 'Lax',
+      maxAge: 3600000, // 1 hour
     });
 
-    // console.log('token-------------',token)
-
-    res.status(200).json({ message: "Login success", data: user,token });
+    res.status(200).json({
+      message: "Login success",
+      data: user,
+      token,
+    });
+    
   } catch (error) {
     console.error("Error in login:", error);
     res.status(500).json({ message: "Server error" });
@@ -87,14 +94,29 @@ const logout = async (req, res) => {
 
 const createUrl = async (req, res) => {
   try {
+    
     let url = req.body.url;
-    let shortId = shortid(8);
-    console.log('short id',shortId);
 
+    const userId = req.user?.userId;
+    
+    if(!url) return res.status(400).json({error:'URL is required'})
+
+
+    let shortId = shortid();
+
+    const newUrl = await Url.create({
+      user: userId,
+      shortId: shortId,
+      redirectURL: url,
+      visitedHistory: [], 
+    })
+
+    console.log(newUrl);
+    
     return res.status(200).json({
       success: true,
       message: "Heyyy",
-      data: url,
+      data: newUrl,
     });
   } catch (error) {
     res.status(401).json({ message: "Error occur" });
@@ -103,15 +125,14 @@ const createUrl = async (req, res) => {
 
 const userProfile = async (req, res) => {
   try {
+  
     const userId = req.user.userId;
-    // console.log('uesridddd',req.user)
     const user = await User.findById(userId).select("-password");
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // console.log(user);
     res.status(200).json({ message: "User profile fetched", data: user });
   } catch (error) {
     console.error("Error in userProfile:", error);

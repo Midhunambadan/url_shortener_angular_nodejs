@@ -6,12 +6,11 @@ import  mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 import cors from 'cors'
-import cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser'
 app.use(cookieParser())
-
 const PORT = process.env.PORT || 5000
 
-import userRouter from './router/userRouter.js';
+import userRouter from './router/userRouter.js'
 
 
 

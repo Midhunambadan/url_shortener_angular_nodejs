@@ -15,12 +15,16 @@ export class UrlService {
   backendData$ = this.backendDataSubject.asObservable()
 
   
-  submitUrl(inputUrl:string):Observable<any>{
-    return this.http.post<any>(`${this.api}/create`,{url:inputUrl}).pipe(
-      tap((res)=>this.backendDataSubject.next(res.data))
-    )
+  submitUrl(inputUrl: string): Observable<any> {
+    return this.http.post<any>(
+      `${this.api}/create`,
+      { url: inputUrl },
+      { withCredentials: true } 
+    ).pipe(
+      tap((res) => this.backendDataSubject.next(res.data))
+    );
   }
-
+  
   
 
 }

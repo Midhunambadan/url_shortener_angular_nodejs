@@ -8,25 +8,14 @@ const userModel = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true, 
     
   },
   password: {
     type: String,
     required: true,
   },
-  urls: [
-    {
-      originalUrl: String,
-      
-      shortUrl: {
-        type: String,
-        unique: true, 
-        sparse: true,
-      },
-
-      createdAt: { type: Date, default: Date.now },
-    },
-  ],
+ 
 });
 
 

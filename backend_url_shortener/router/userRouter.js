@@ -13,8 +13,12 @@ router.post('/login',userController.login)
 router.post('/logout',userController.logout)
 
 
-router.post('/create', userController.createUrl)
+// router.post('/create', userController.createUrl)
+router.post('/create',authenticateToken, userController.createUrl)
 router.get('/profile', authenticateToken, userController.userProfile)
+
+
+
 
 
 
