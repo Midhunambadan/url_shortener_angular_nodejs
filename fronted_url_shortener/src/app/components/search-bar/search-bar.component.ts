@@ -21,6 +21,7 @@ export class SearchBarComponent  implements OnInit{
 
   ngOnInit(): void {
     this.UrlService.backendData$.subscribe((data) => {
+      console.log('data------',data)
       this.dataBackend = data
     })
   }

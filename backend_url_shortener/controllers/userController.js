@@ -23,11 +23,11 @@ const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
 
-    console.log('new user------',newUser);
+    // console.log('new user------',newUser);
     
     let data = await newUser.save();
 
-    console.log('---------------------------------------',data)
+    // console.log('---------------------------------------',data)
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
@@ -111,7 +111,7 @@ const createUrl = async (req, res) => {
       visitedHistory: [], 
     })
 
-    console.log(newUrl);
+    // console.log('newUrl',newUrl);
     
     return res.status(200).json({
       success: true,
@@ -140,6 +140,25 @@ const userProfile = async (req, res) => {
   }
 };
 
+const redirectUrl= async(req,res)=>{
+  try {
+    const shortId=req.params.shortId
+    console.log('shortid----------',shortId);
+
+    const entry=await Url.findOneAndUpdate({shortId},{$push:{
+        visitedHistory:{
+          timestamp:Date.now(), 
+        }
+    }})
+
+    res.redirect(entry.redirectURL)
+
+    
+  } catch (error) {
+    
+  }
+}
+
 export default {
   home,
   signup,
@@ -147,4 +166,6 @@ export default {
   createUrl,
   userProfile,
   logout,
+  redirectUrl
 };
+

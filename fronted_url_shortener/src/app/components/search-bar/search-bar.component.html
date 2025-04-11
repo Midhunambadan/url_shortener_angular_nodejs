@@ -36,6 +36,10 @@
 
 
 <div *ngIf="dataBackend">
-    <h3>Backend Response:</h3>
-    <pre>{{ dataBackend  }}</pre>
-  </div>
+    <h3>BackendData:-</h3>
+    <ul>
+        <li *ngFor="let item of dataBackend | keyvalue">
+            <strong>{{ item.key }}: </strong> {{ item.value }}
+        </li>
+    </ul>
+</div>

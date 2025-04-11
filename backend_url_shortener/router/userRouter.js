@@ -17,6 +17,10 @@ router.post('/logout',userController.logout)
 router.post('/create',authenticateToken, userController.createUrl)
 router.get('/profile', authenticateToken, userController.userProfile)
 
+router.get('/:shortId',userController.redirectUrl)
+
+
+
 
 
 

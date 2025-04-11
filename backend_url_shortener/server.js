@@ -12,7 +12,10 @@ const PORT = process.env.PORT || 5000
 
 import userRouter from './router/userRouter.js'
 
-
+// const allowedOrigins = [
+//   'http://localhost:4200',
+//   'https://239a-103-214-235-11.ngrok-free.app'
+// ];
 
 app.use(cors({
     origin: 'http://localhost:4200', 
