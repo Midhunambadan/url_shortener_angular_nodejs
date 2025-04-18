@@ -19,6 +19,9 @@ router.get('/profile', authenticateToken, userController.userProfile)
 
 router.get('/:shortId',userController.redirectUrl)
 
+router.get('/savedurl', authenticateToken, userController.getAllURL)
+
+
 
 
 

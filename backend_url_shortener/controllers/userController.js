@@ -159,6 +159,21 @@ const redirectUrl= async(req,res)=>{
   }
 }
 
+const getAllURL = async (req, res) => {
+  try {
+    console.log('getAllURL--------');
+    
+    const userId = req.user.id;
+    console.log('userID',userId)
+    const urls = await Url.find({ user: userId }).sort({ createdAt: -1 });
+    
+    res.status(200).json(urls);
+  } catch (error) {
+    console.error("Error fetching URLs:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 export default {
   home,
   signup,
@@ -166,6 +181,7 @@ export default {
   createUrl,
   userProfile,
   logout,
-  redirectUrl
+  redirectUrl,
+  getAllURL
 };
 
